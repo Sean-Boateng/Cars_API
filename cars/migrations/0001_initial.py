@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('make', models.CharField(max_length=255)),
                 ('model', models.CharField(max_length=255)),
                 ('year', models.IntegerField()),
-                ('price', models.DecimalField(decimal_places=2, max_digits=8)),
+                ('price', models.DecimalField(decimal_places=2, max_digits=2)),
             ],
         ),
     ]
