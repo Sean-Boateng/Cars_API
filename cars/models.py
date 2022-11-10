@@ -1,3 +1,5 @@
+from string import digits
+from unicodedata import digit
 from django.db import models
 
 # Create your models here.

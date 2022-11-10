@@ -1,7 +1,29 @@
+from urllib.request import Request
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .serializers import CarSerializer
+from .models import Car
+from rest_framework import status
 
-@api_view(['GET'])
+
+
+@api_view(['GET', 'POST'])
 def cars_list(request):
+    if request.method == 'GET':
+        cars = Car.objects.all()
+        serializer = CarSerializer(cars,many=True)
+        return Response(serializer.data)
 
-    return Response('ok')
+    elif request.method == 'POST':
+        serializer = CarSerializer(data = request.data) 
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status= status.HTTP_201_CREATED )
+
+        
+# This is another way to write the POST code above
+    # if serializer.is_valid() == True:
+    #     serializer.save()
+    #     return Response(serializer.data, status=201)
+    # else:
+    #     return Response(serializer.errors, status=400)
